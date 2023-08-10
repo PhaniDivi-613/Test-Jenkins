@@ -1,4 +1,4 @@
-def choicesString = readFile('options.txt')
+def choicesString = readFileFromWorkspace('options.txt')
 def choicesArray = choicesString.split('\n')
 
 pipelineJob("Testing the reading of a file for parameter options") {
