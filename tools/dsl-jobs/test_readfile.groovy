@@ -24,7 +24,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
                     remote {
                         url("https://github.com/PhaniDivi-613/Test-Jenkins.git")
                     }
-                    branch("*/master")
+                    branch("*/main")
                 }
             }
             scriptPath("tools/jenkins-jobs/test-fileread.groovy")
