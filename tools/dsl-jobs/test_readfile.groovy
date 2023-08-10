@@ -27,7 +27,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
                     branch("*/main")
                 }
             }
-            scriptPath("tools/jenkins-jobs/test-fileread.groovy")
+            scriptPath("tools/jenkins-jobs/test-readfile.groovy")
         }
     }
 }
