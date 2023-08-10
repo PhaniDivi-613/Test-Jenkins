@@ -5,6 +5,9 @@ pipelineJob("Testing the reading of a file for parameter options") {
             strategy {
                 logRotator {
                     daysToKeepStr("-1")
+                    numToKeepStr("199")
+                    artifactDaysToKeepStr("-1")
+                    artifactNumToKeepStr("-1")
                 }
             }
         }
