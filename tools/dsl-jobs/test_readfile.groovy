@@ -1,5 +1,5 @@
 def choicesString = readFileFromWorkspace('options.txt')
-def choicesArray = choicesString.split('\n').collect { "\"$it\"" }
+def choicesArray = choicesString.split('\n').collect { "$it" }
 println choicesArray
 
 
