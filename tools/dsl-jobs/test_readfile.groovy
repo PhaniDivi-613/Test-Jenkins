@@ -1,6 +1,6 @@
 def choicesString = readFileFromWorkspace('options.txt')
 def choicesArray = choicesString.split('\n').collect { "\"$it\"" }
-optionsArray = []
+println choicesArray
 
 
 pipelineJob("Testing the reading of a file for parameter options") {
