@@ -1,5 +1,6 @@
 def choicesString = readFileFromWorkspace('options.txt')
 def choicesArray = choicesString.split('\n')
+println choicesArray
 
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
@@ -16,7 +17,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
         }
     }
     parameters {
-        choiceParam('OPTION', ["option_1", "option_2", "option_3"], 'Choose the option')
+        choiceParam('OPTION', choicesArray, 'Choose the option')
     }
     description()
     keepDependencies(false)
