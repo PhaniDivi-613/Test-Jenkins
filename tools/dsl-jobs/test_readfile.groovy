@@ -1,5 +1,5 @@
 def choicesString = readFileFromWorkspace('options.txt')
-def choicesString = deploymentsString.split('\n').collect { "$it" }
+def choicesString = choicesString.split('\n').collect { "$it" }
 println choicesString
 for(int i=0; i<deployments.size(); i++){
     println choicesString[i]
