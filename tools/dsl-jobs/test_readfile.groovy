@@ -2,9 +2,6 @@ def choicesString = readFileFromWorkspace('options.txt')
 def choicesString = choicesString.split('\n').collect { "$it" }
 println choicesString
 choicesString.each { println it }
-def cronString = "TZ=America/Toronto\n \
-H */6 * * * %OPTION=${choicesString}"
-println cronString
 
 
 pipelineJob("Testing the reading of a file for parameter options") {
