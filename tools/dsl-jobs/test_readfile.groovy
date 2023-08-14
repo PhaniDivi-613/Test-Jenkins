@@ -1,10 +1,8 @@
-def choicesString = readFileFromWorkspace('options.txt')
-def choicesArray = choicesString.split('\n').collect { "$it" }
-println choicesArray
-choicesArray.each{println it}
-println "Done"
+def choicesString = readFileFromWorkspace('options.txt').split('\n').collect { "$it" }
+def choicesArray = ""
+
 for(String item: choicesArray) {
-    println item
+    choicesArray += item.split('_')[0] + '-' + item.split('_')[0]
 }
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
