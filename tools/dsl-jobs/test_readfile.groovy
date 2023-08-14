@@ -1,9 +1,6 @@
 def choicesString = readFileFromWorkspace('options.txt')
 def choicesString = choicesString.split('\n').collect { "$it" }
 println choicesString
-choicesString.each { println it }
-
-
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
