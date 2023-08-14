@@ -1,10 +1,8 @@
 def choicesString = readFileFromWorkspace('options.txt').replace('\n', ',')
-def choicesArray = choicesString.split('\n').collect { "$it" }
-println choicesArray
+println choicesString
 def cronRegex = '''TZ=America/Toronto\n
-H */6 * * * %OPTION={}
-H */6 * * * %OPTION{}
-'''.format(deployments)
+H */6 * * * %OPTION=${choicesString}
+'''
 println cronRegex
 
 
@@ -30,7 +28,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
         }
     }
     parameters {
-        choiceParam('OPTION', choicesArray, 'Choose the option')
+        choiceParam('OPTION', choicesString, 'Choose the option')
     }
     description()
     keepDependencies(false)
