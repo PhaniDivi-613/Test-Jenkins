@@ -1,7 +1,7 @@
 def choicesString = readFileFromWorkspace('options.txt').trim().replace('\n', ',')
 println choicesString
 def cronString = '''TZ=America/Toronto\n 
-H */6 * * * %OPTION=\$choiceString''' 
+H */6 * * * %OPTION=\$choicesString''' 
 println cronString
 
 
