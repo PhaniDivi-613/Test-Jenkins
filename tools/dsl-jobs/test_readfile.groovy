@@ -18,7 +18,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
         pipelineTriggers {
             triggers {
                 parameterizedCron {
-                    parameterizedSpecification('''TZ=America/Toronto
+                    parameterizedSpecification('''TZ=America/Toronto\n
 H */6 * * * %OPTION='abcd'
 ''')
                 }
