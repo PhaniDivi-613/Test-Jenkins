@@ -1,9 +1,7 @@
 def choicesString = readFileFromWorkspace('options.txt')
 def choicesString = choicesString.split('\n').collect { "$it" }
 println choicesString
-for(int i=0; i<choicesString.size(); i++){
-    println choicesString[i]
-}
+choicesString.each { println it }
 def cronString = "TZ=America/Toronto\n
 H */6 * * * %OPTION=${choicesString}"
 println cronString
