@@ -1,5 +1,9 @@
 def choicesString = readFileFromWorkspace('options.txt').replace('\n', ',')
 println choicesString
+def cronString = '''TZ=America/Toronto\n
+H */6 * * * %OPTION=$choicesString
+'''
+println cronString
 
 
 pipelineJob("Testing the reading of a file for parameter options") {
@@ -18,7 +22,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
         pipelineTriggers {
             triggers {
                 parameterizedCron {
-                    parameterizedSpecification('TZ=America/Toronto H */6 * * * %OPTION=\'abcd\'')
+                    parameterizedSpecification(cronString)
                 }
             }
         }
