@@ -4,6 +4,7 @@ def choicesArray = ""
 for(String item: choicesArray) {
     choicesArray += item.split('_')[0] + '-' + item.split('_')[0]
 }
+println choicesArray
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
