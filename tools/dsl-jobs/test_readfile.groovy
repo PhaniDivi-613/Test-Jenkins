@@ -1,6 +1,11 @@
-def choicesString = readFileFromWorkspace('options.txt')
+def choicesString = readFileFromWorkspace('options.txt').replace('\n', ',')
 def choicesArray = choicesString.split('\n').collect { "$it" }
 println choicesArray
+def cronRegex = '''TZ=America/Toronto\n
+H */6 * * * %OPTION={}
+H */6 * * * %OPTION{}
+'''.format(deployments)
+println cronRegex
 
 
 pipelineJob("Testing the reading of a file for parameter options") {
@@ -13,6 +18,13 @@ pipelineJob("Testing the reading of a file for parameter options") {
                     numToKeepStr("199")
                     artifactDaysToKeepStr("-1")
                     artifactNumToKeepStr("-1")
+                }
+            }
+        }
+        pipelineTriggers {
+            triggers {
+                parameterizedCron {
+                    parameterizedSpecification(cronRegex)
                 }
             }
         }
