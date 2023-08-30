@@ -1,5 +1,5 @@
-def choicesString = readFileFromWorkspace('options.txt').split('\n').collect { it.replace('_', '-') }.join(',')
-println choicesString
+def choicesString = readFileFromWorkspace('options.txt')
+def choices = choicesString.split('\n').collect { "$it" }
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
@@ -16,13 +16,15 @@ pipelineJob("Testing the reading of a file for parameter options") {
         pipelineTriggers {
             triggers {
                 parameterizedCron {
-                    parameterizedSpecification(cronString)
+                    parameterizedSpecification('''TZ=America/Toronto\n
+30 2 * * 1-4 %OPTION=option_1
+''')
                 }
             }
         }
     }
     parameters {
-        choiceParam('OPTION', choicesString, 'Choose the option')
+        choiceParam('OPTION', choices, 'Choose the option')
     }
     description()
     keepDependencies(false)
