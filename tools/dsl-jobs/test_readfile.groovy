@@ -13,6 +13,15 @@ pipelineJob("Testing the reading of a file for parameter options") {
                 }
             }
         }
+        pipelineTriggers {
+            triggers {
+                parameterizedCron {
+                    parameterizedSpecification('''TZ=America/Toronto\n
+40 2 * * 1-4 %OPTION=option_1
+''')
+                }
+            }
+        }
     }
     parameters {
         choiceParam('OPTION', choices, 'Choose the option')
