@@ -1,16 +1,12 @@
-import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 
 def choicesString = readFileFromWorkspace('options.txt')
 def choices = choicesString.split('\n').collect { "$it" }
-def currentDirectory = new File('.')
-def filesInCurrentDirectory = currentDirectory.listFiles()
 
-filesInCurrentDirectory.each { file ->
-    println(file.name)
-}
+def jsonSlurper = new JsonSlurper()
 def services = ["atracker", "metrics-router"]
 def cron = "TZ=America/Toronto\n\n"
-def cronTimings = new File('promotion-cron-timings.json').text
+def cronTimings = jsonSlurper.parse(readFileFromWorkspace'promotion-cron-timings.json')
 println(cronTimings)
 for (service in services) {
     cronTimings["$service"].each{ region, cronExp ->
