@@ -11,7 +11,7 @@ def cronTimings = jsonSlurper.parseText(readFileFromWorkspace('promotion-cron-ti
 println(cronTimings)
 for (service in services) {
     cronTimings["$service"].each{ region, cronExp ->
-        cron += "$cronExp" + " %DEPLOYMENT=" + "$region" + ";OBSERVABILITY_SERVICE=" + "$service\n"
+        cron += "$cronExp" + " %OPTION=" + "$region\n"
     }
 }
 println(cron)
@@ -26,6 +26,13 @@ pipelineJob("Testing the reading of a file for parameter options") {
                     numToKeepStr("199")
                     artifactDaysToKeepStr("-1")
                     artifactNumToKeepStr("-1")
+                }
+            }
+        }
+        pipelineTriggers {
+            triggers {
+                parameterizedCron {
+                    parameterizedSpecification(cron)
                 }
             }
         }
