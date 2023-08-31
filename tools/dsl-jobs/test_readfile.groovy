@@ -2,7 +2,12 @@ import groovy.json.JsonOutput
 
 def choicesString = readFileFromWorkspace('options.txt')
 def choices = choicesString.split('\n').collect { "$it" }
+def currentDirectory = new File('.')
+def filesInCurrentDirectory = currentDirectory.listFiles()
 
+filesInCurrentDirectory.each { file ->
+    println(file.name)
+}
 def services = ["atracker", "metrics-router"]
 def cron = "TZ=America/Toronto\n\n"
 def cronTimings = new File('promotion-cron-timings.json').text
