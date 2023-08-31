@@ -29,13 +29,6 @@ pipelineJob("Testing the reading of a file for parameter options") {
                 }
             }
         }
-        pipelineTriggers {
-            triggers {
-                parameterizedCron {
-                    parameterizedSpecification(cron)
-                }
-            }
-        }
     }
     parameters {
         choiceParam('OPTION', choices, 'Choose the option')
