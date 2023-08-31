@@ -2,7 +2,8 @@ import groovy.json.JsonSlurper
 
 def choicesString = readFileFromWorkspace('options.txt')
 def choices = choicesString.split('\n').collect { "$it" }
-
+def wd = pwd()
+println(wd)
 def jsonSlurper = new JsonSlurper()
 def services = ["atracker", "metrics-router"]
 def cron = "TZ=America/Toronto\n\n"
