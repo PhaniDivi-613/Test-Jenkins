@@ -1,8 +1,20 @@
+import groovy.json.JsonOutput
+
 def choicesString = readFileFromWorkspace('options.txt')
 def choices = choicesString.split('\n').collect { "$it" }
-def cron = "TZ=America/Toronto\n\n\
-40 2 * * 1-4 %OPTION=${choices[1]}\n"
-print(cron)
+
+def services = ["atracker", "metrics-router"]
+def cron = "TZ=America/Toronto\n\n"
+def cronTimingsFile = 'promotion-cron-timings.json'
+def cronTimings = new File(cronTimingsFile).text
+println(cronTimings)
+for (service in services) {
+    cronTimings["$service"].each{ region, cronExp ->
+        cron += "$cronExp" + " %DEPLOYMENT=" + "$region" + ";OBSERVABILITY_SERVICE=" + "$service\n"
+    }
+}
+println(cron)
+
 pipelineJob("Testing the reading of a file for parameter options") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
