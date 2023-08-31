@@ -5,8 +5,7 @@ def choices = choicesString.split('\n').collect { "$it" }
 
 def services = ["atracker", "metrics-router"]
 def cron = "TZ=America/Toronto\n\n"
-def cronTimingsFile = 'promotion-cron-timings.json'
-def cronTimings = new File(cronTimingsFile).text
+def cronTimings = new File('promotion-cron-timings.json').text
 println(cronTimings)
 for (service in services) {
     cronTimings["$service"].each{ region, cronExp ->
