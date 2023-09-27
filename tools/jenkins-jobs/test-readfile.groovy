@@ -11,7 +11,7 @@ pipeline {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     script {
                         int status = sh(script: """
-                                exit 0
+                                exit 1
                             """, returnStatus: true)
                         if(status != 0){
                             E2E_RESULT = "FAILURE"
