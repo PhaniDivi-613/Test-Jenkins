@@ -30,7 +30,7 @@ pipeline {
                     script {
                         if(E2E_RESULT == 'SUCCESS' || env.E2E_TESTS_BYPASS == 'True' ){
                             sh """
-                                exit 0
+                                exit 1
                             """
                         }else{
                             echo "Release file is not being genrated as tests failed and both EE2E_TESTS_BYPASS and E2E_TESTS_BYPASS_OVERRIDE are set to False"
