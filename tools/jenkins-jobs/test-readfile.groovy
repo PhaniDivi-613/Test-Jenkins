@@ -13,7 +13,7 @@ pipeline {
                             exit 1
                         """, returnStatus: true)
                     if(status != 0){
-                        currentBuild.result = 'FAILURE'
+                        error("Tests failed - Check the Job logs")
                         E2E_RESULT = "FAILURE"
                         STAGE_DETAILS.add("Stage: Trigger E2E tests - Error in Tests, Check the logs.")
                     }
