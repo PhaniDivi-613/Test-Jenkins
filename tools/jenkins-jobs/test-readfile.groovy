@@ -32,8 +32,8 @@ pipeline {
                                     exit 0
                                 """
                             }else{
-                                currentBuild.result = 'FAILURE'
-                                STAGE_DETAILS.add("Stage: Generate release file for the stage environment - skipped due to earlier failure")
+                                echo "Release file is not being genrated as tests failed and both EE2E_TESTS_BYPASS and E2E_TESTS_BYPASS_OVERRIDE are set to False"
+                                STAGE_DETAILS.add("\nStage: Generate release file for the stage environment - skipped due to earlier failure")
                             }
                     } 
                 }
