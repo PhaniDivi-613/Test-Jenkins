@@ -14,7 +14,7 @@ pipelineJob("Testing for automation hole") {
         }
     }
     parameters {
-        booleanParam('E2E_TESTS_BYPASS', false, 'Choose the option')
+        stringParam('E2E_TESTS_BYPASS', 'False', 'True or False')
     }
     description()
     keepDependencies(false)

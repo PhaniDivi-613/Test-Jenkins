@@ -24,7 +24,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     script {
-                            if(E2E_RESULT == 'SUCCESS' || ${E2E_TESTS_BYPASS} || E2E_TESTS_BYPASS_OVERRIDE.toBoolean()){
+                            if(E2E_RESULT == 'SUCCESS' || ${E2E_TESTS_BYPASS}.toBoolean()){
                                 sh """
                                     exit 0
                                 """
