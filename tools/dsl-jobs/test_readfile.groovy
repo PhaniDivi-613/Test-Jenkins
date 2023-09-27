@@ -1,22 +1,5 @@
-import groovy.json.JsonSlurper
 
-def choicesString = readFileFromWorkspace('options.txt')
-def choices = choicesString.split('\n').collect { "$it" }
-
-def jsonSlurper = new JsonSlurper()
-def services = ["atracker", "metrics-router"]
-def cron = "TZ=America/Toronto\n\n"
-println(readFileFromWorkspace('promotion-cron-timings.json'))
-def cronTimings = jsonSlurper.parseText(readFileFromWorkspace('promotion-cron-timings.json'))
-println(cronTimings)
-for (service in services) {
-    cronTimings["$service"].each{ region, cronExp ->
-        cron += "$cronExp" + " %OPTION=" + "$region\n"
-    }
-}
-println(cron)
-
-pipelineJob("Testing the reading of a file for parameter options") {
+pipelineJob("Testing for automation hole") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
         buildDiscarder {
@@ -31,7 +14,7 @@ pipelineJob("Testing the reading of a file for parameter options") {
         }
     }
     parameters {
-        choiceParam('OPTION', choices, 'Choose the option')
+        booleanParam('E2E_TESTS_BYPASS', false, 'Choose the option')
     }
     description()
     keepDependencies(false)
