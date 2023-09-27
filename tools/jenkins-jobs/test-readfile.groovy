@@ -42,8 +42,6 @@ pipeline {
         always {
             script {
                 println STAGE_DETAILS
-                slack.sendInfoMessage("Test Cases failed or Error generating release file for staging. Check the Job", slackChannel)
-                slack.markProcessingFailure()
             }
         }
     }
