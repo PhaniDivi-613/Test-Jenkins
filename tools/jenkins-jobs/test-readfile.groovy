@@ -10,6 +10,7 @@ pipeline {
             steps {
                 script {
                     int status = sh(script: """
+                            echo ${E2E_TESTS_BYPASS}
                             exit 1
                         """, returnStatus: true)
                     if(status != 0){
