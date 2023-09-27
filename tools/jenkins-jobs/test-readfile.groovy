@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Trigger E2E tests') {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     script {
                         int status = sh(script: """
                                 echo ${E2E_TESTS_BYPASS}
