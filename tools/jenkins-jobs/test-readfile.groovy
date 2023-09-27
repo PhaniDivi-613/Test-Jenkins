@@ -1,7 +1,7 @@
-E2E_RESULT = "SUCCESS"
-STAGE_DETAILS = []
+def E2E_RESULT = "SUCCESS"
+def STAGE_DETAILS = []
 def envvariable = env.E2E_TESTS_BYPASS
-println($envvariable)
+println(envvariable)
 
 pipeline {
     agent {
