@@ -1,5 +1,6 @@
 def E2E_RESULT = "SUCCESS"
 def STAGE_DETAILS = []
+def RELEASE_FILE = "FAILURE"
 
 pipeline {
     agent {
@@ -25,16 +26,17 @@ pipeline {
         }
         stage('Generate release file for the stage environment') {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     script {
-                            if(E2E_RESULT == 'SUCCESS' || env.E2E_TESTS_BYPASS == 'True' ){
-                                sh """
-                                    exit 0
-                                """
-                            }else{
-                                echo "Release file is not being genrated as tests failed and both EE2E_TESTS_BYPASS and E2E_TESTS_BYPASS_OVERRIDE are set to False"
-                                STAGE_DETAILS.add("\nStage: Generate release file for the stage environment - skipped due to earlier failure")
-                            }
+                        if(E2E_RESULT == 'SUCCESS' || env.E2E_TESTS_BYPASS == 'True' ){
+                            sh """
+                                exit 0
+                            """
+                        }else{
+                            echo "Release file is not being genrated as tests failed and both EE2E_TESTS_BYPASS and E2E_TESTS_BYPASS_OVERRIDE are set to False"
+                            STAGE_DETAILS.add("\nStage: Generate release file for the stage environment - skipped due to earlier failure")
+                        }
+                        RELEASE_FILE = "SUCCESS"
                     } 
                 }
             }
@@ -44,6 +46,9 @@ pipeline {
         always {
             script {
                 println STAGE_DETAILS
+                if(RELEASE_FILE == "FAILURE"){
+                    println("Release file failed")
+                }
             }
         }
     }
