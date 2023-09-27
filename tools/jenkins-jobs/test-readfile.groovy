@@ -8,22 +8,20 @@ pipeline {
     stages {
         stage('Trigger E2E tests') {
             steps {
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                    script {
-                        int status = sh(script: """
-                                exit 1
-                            """, returnStatus: true)
-                        if(status != 0){
-                            E2E_RESULT = "FAILURE"
-                            STAGE_DETAILS.add("Stage: Trigger E2E tests - Error in Tests, Check the logs.")
-                        }
+                script {
+                    int status = sh(script: """
+                            exit 1
+                        """, returnStatus: true)
+                    if(status != 0){
+                        E2E_RESULT = "FAILURE"
+                        STAGE_DETAILS.add("Stage: Trigger E2E tests - Error in Tests, Check the logs.")
                     }
                 }
             }
         }
         stage('Generate release file for the stage environment') {
             steps {
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     script {
                             if(E2E_RESULT == 'SUCCESS' || E2E_TESTS_BYPASS.toBoolean() || E2E_TESTS_BYPASS_OVERRIDE.toBoolean()){
                                 sh """
