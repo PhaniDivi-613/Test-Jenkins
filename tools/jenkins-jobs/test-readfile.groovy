@@ -1,6 +1,5 @@
 def E2E_RESULT = "SUCCESS"
 def STAGE_DETAILS = []
-def E2E_TESTS_BYPASS = env.E2E_TESTS_BYPASS
 
 pipeline {
     agent {
@@ -28,12 +27,11 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     script {
-                            if(E2E_RESULT == 'SUCCESS' || E2E_TESTS_BYPASS == "True" ){
+                            if(E2E_RESULT == 'SUCCESS' || env.E2E_TESTS_BYPASS == 'True' ){
                                 sh """
                                     exit 0
                                 """
                             }else{
-                                println(E2E_TESTS_BYPASS)
                                 currentBuild.result = 'FAILURE'
                                 STAGE_DETAILS.add("Stage: Generate release file for the stage environment - skipped due to earlier failure")
                             }
