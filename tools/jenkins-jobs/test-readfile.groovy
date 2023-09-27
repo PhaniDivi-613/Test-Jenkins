@@ -31,6 +31,7 @@ pipeline {
                                     exit 0
                                 """
                             }else{
+                                println(E2E_TESTS_BYPASS)
                                 currentBuild.result = 'FAILURE'
                                 STAGE_DETAILS.add("Stage: Generate release file for the stage environment - skipped due to earlier failure")
                             }
