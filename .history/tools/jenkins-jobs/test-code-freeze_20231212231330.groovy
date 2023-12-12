@@ -11,8 +11,8 @@ boolean isInCodeFreeze(String region) {
     def currentDateTime = ZonedDateTime.now(ZoneId.of('UTC')).format(formatter)
 
     def inFreeze = freezeData.find { event ->
-        def freezeStart = ZonedDateTime.parse(event."Freeze Start").format(formatter)
-        def freezeEnd = ZonedDateTime.parse(event."Freeze End").withZoneSameInstant(ZoneId.of("UTC")).format(formatter)
+        def freezeStart = ZonedDateTime.parse(event."Freeze Start").withZoneSameInstant(ZoneId.of("UTC"))
+        def freezeEnd = ZonedDateTime.parse(event."Freeze End").withZoneSameInstant(ZoneId.of("UTC"))
         def regions = event."Regions"
 
         println "Freeze Start: ${freezeStart}"
