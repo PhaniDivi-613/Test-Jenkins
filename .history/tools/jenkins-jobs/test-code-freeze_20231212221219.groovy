@@ -4,8 +4,6 @@ import java.time.format.DateTimeFormatter
 
 boolean isInCodeFreeze(String region) {
     def jsonData = readFile 'tools/codefreeze-timings.json'
-    print(jsonData)
-    return True
     // def freezeData = new JsonSlurper().parseText(jsonData)
 
     // def currentDateTime = ZonedDateTime.now()
