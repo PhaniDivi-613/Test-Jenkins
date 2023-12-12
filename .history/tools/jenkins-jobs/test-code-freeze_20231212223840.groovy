@@ -22,7 +22,6 @@ boolean isInCodeFreeze(String region) {
         currentDateTime.isBefore(freezeEnd) &&
         regions.contains(region)
     }
-    print(inFreeze)
     return inFreeze != null
 }
 
