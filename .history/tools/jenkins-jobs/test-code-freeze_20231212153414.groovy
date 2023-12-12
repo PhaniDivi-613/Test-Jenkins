@@ -3,7 +3,6 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 boolean isInCodeFreeze(String region) {
-    println System.getProperty("java.class.path")
     def resourcePath = this.getClass().getResource("/codefreeze-timings.json")
     println resourcePath
     if (resourcePath) {
