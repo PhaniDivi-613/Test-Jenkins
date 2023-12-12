@@ -14,7 +14,7 @@ pipelineJob("Testing Job for code freeze") {
         }
     }
     parameters {
-        choiceParam('DEPLOYMENT', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
+        choiceParam('REGION', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
     }
     description()
     keepDependencies(false)

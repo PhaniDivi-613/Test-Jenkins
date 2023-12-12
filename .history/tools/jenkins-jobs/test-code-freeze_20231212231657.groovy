@@ -20,7 +20,9 @@ boolean isInCodeFreeze(String region) {
         println "Freeze End: ${freezeEnd}"
         println "Regions: ${regions}"
 
-        currentDateTime.isAfter(freezeStart) && currentDateTime.isBefore(freezeEnd) && regions.contains(region)
+        currentDateTime.isAfter(freezeStart) &&
+            currentDateTime.isBefore(freezeEnd) &&
+            regions.contains(region)
     }
 
     println "In Freeze: ${inFreeze}"
@@ -32,7 +34,7 @@ pipeline {
         label 'agent-1'
     }
     environment {
-        REGION = "${env.DEPLOYMENT.split('_')[1]}"
+        REGION = "${env.REGION}"
     }
     stages {
         stage('List All Files') {

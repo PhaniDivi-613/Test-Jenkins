@@ -20,7 +20,9 @@ boolean isInCodeFreeze(String region) {
         println "Freeze End: ${freezeEnd}"
         println "Regions: ${regions}"
 
-        currentDateTime.isAfter(freezeStart) && currentDateTime.isBefore(freezeEnd) && regions.contains(region)
+        currentDateTime.isAfter(freezeStart) &&
+            currentDateTime.isBefore(freezeEnd) &&
+            regions.contains(region)
     }
 
     println "In Freeze: ${inFreeze}"
