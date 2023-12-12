@@ -1,0 +1,93 @@
+[
+    {
+      "Freeze Type": "HARD",
+      "Event": "BNPP Requested Q4 Quarter-End / Year End for Paris dMZR (BNPP)",
+      "Freeze Start": "2022-12-11T23:01:59Z",
+      "Freeze End": "2023-01-08T23:59:59Z",
+      "Regions": ["eu-fr2"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "New Year’s Day",
+      "Freeze Start": "2023-01-01T05:00:00Z",
+      "Freeze End": "2023-01-03T04:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "BNPP requested hard freeze for DR test for Paris dMZR (BNPP)",
+      "Freeze Start": "2023-01-11T23:00:01Z",
+      "Freeze End": "2023-01-15T22:59:59Z",
+      "Regions": ["eu-fr2"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "BNPP requested hard freeze for DR test for Paris dMZR (BNPP)",
+      "Freeze Start": "2023-02-09T23:00:01Z",
+      "Freeze End": "2023-02-12T22:59:59Z",
+      "Regions": ["eu-fr2"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "BNPP requested hard freeze for DR test for Paris dMZR (BNPP)",
+      "Freeze Start": "2023-02-16T23:00:01Z",
+      "Freeze End": "2023-02-19T22:59:59Z",
+      "Regions": ["eu-fr2"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "End of Q1",
+      "Freeze Start": "2023-03-27T04:00:01Z",
+      "Freeze End": "2023-04-01T03:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "IBM THINK",
+      "Freeze Start": "2023-05-09T04:00:01Z",
+      "Freeze End": "2023-05-13T03:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "End of Q2",
+      "Freeze Start": "2023-06-26T04:00:01Z",
+      "Freeze End": "2023-07-01T03:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD (Japan Only)",
+      "Event": "IBM Internal change freeze for all zones in Japan (TOK and OSA) (email announcement)",
+      "Freeze Start": "2023-07-25T00:00:00Z",
+      "Freeze End": "2023-09-15T11:59:59Z",
+      "Regions": ["eu-fr2"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "End of Q3",
+      "Freeze Start": "2023-09-25T04:00:01Z",
+      "Freeze End": "2023-10-01T03:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "US Thanksgiving / Cyber Monday",
+      "Freeze Start": "2023-11-22T05:00:01Z",
+      "Freeze End": "2023-11-29T04:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD",
+      "Event": "End of Q4/Year",
+      "Freeze Start": "2023-12-18T05:00:01Z",
+      "Freeze End": "2024-01-02T04:59:59Z",
+      "Regions": ["au-syd", "eu-gb", "eu-es", "us-south", "us-east", "eu-de"]
+    },
+    {
+      "Freeze Type": "HARD - BNPP",
+      "Event": "BNPP End Of Year Change Freeze",
+      "Freeze Start": "2023-12-10T23:01:00Z",
+      "Freeze End": "2024-01-07T22:59:00Z",
+      "Regions": ["eu-fr2"]
+    }
+  ]

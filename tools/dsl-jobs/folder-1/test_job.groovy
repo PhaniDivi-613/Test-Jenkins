@@ -1,5 +1,5 @@
 
-pipelineJob("Testing Job 1") {
+pipelineJob("Testing Job for code freeze") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
         buildDiscarder {
@@ -14,7 +14,7 @@ pipelineJob("Testing Job 1") {
         }
     }
     parameters {
-        stringParam('PARAM', 'False', 'True or False')
+        choiceParam('REGION', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
     }
     description()
     keepDependencies(false)
@@ -28,7 +28,7 @@ pipelineJob("Testing Job 1") {
                     branch("*/main")
                 }
             }
-            scriptPath("tools/jenkins-jobs/test-readfile.groovy")
+            scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
         }
     }
 }
