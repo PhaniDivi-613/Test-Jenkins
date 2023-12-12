@@ -16,7 +16,7 @@ boolean isInCodeFreeze(String region) {
         def regions = event."Regions"
 
         println "Freeze Start: ${freezeStart}"
-        println "Current DateTime: ${currentDateTime}"
+        println "Current DateTime: ${CurrentDateTime}"
         println "Freeze End: ${freezeEnd}"
         println "Regions: ${regions}"
 
