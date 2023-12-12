@@ -7,7 +7,7 @@ boolean isInCodeFreeze(String region) {
     print(jsonData)
     def freezeData = new JsonSlurper().parseText(jsonData)
 
-    def currentDateTime = ZonedDateTime.now(ZoneId.of("UTC"))
+    def currentDateTime = ZonedDateTime.now()
     def inFreeze = freezeData.find { event ->
         def freezeStart = ZonedDateTime.parse(event."Freeze Start")
         def freezeEnd = ZonedDateTime.parse(event."Freeze End")
