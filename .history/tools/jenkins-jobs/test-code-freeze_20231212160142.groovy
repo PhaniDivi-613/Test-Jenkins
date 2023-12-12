@@ -3,7 +3,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 boolean isInCodeFreeze(String region) {
-    def jsonData = new File("./tools/codefreeze-timings.json").text
+    def jsonData = new File("./tools/codefreeze-timings.json")
     def freezeData = new JsonSlurper().parseText(jsonData)
 
     def currentDateTime = ZonedDateTime.now()
