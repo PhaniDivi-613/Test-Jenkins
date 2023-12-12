@@ -3,14 +3,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 boolean isInCodeFreeze(String region) {
-    def resourcePath = this.getClass().getResource("/codefreeze-timings.json")
-    if (resourcePath) {
-        jsonData = resourcePath.text
-    } else {
-        println "Resource file 'codefreeze-timings.json' not found or inaccessible"
-        // Handle the case where the resource file is not accessible or doesn't exist
-        // For example, you might want to set a default value for jsonData or take alternative actions.
-    }
+    def jsonData = this.getClass().getResource("/codefreeze-timings.json").text
     def freezeData = new JsonSlurper().parseText(jsonData)
 
     def currentDateTime = ZonedDateTime.now()
