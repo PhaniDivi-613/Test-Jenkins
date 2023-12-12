@@ -4,34 +4,25 @@ import java.time.format.DateTimeFormatter
 
 boolean isInCodeFreeze(String region) {
     def jsonData = readFile 'tools/codefreeze-timings.json'
-    def freezeData = new groovy.json.JsonSlurper().parseText(jsonData)
+    print(jsonData)
+    def freezeData = new JsonSlurper().parseText(jsonData)
 
-    // Get the current date and time in Asia/Kolkata time zone
-    def currentDateTime = ZonedDateTime.now(ZoneId.of('Asia/Kolkata')).toLocalDateTime()
-
-    // Format the currentDateTime to display only date and time without fractional seconds
-    def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-    def formattedCurrentDateTime = currentDateTime.format(formatter)
-
-    // Convert currentDateTime to UTC for comparison with freezeStart
-    def currentDateTimeUTC = currentDateTime.withZoneSameInstant(ZoneId.of("UTC"))
-
+    def currentDateTime = ZonedDateTime.now()
     def inFreeze = freezeData.find { event ->
-        def freezeStart = ZonedDateTime.parse(event."Freeze Start").withZoneSameInstant(ZoneId.of("UTC"))
-        def freezeEnd = ZonedDateTime.parse(event."Freeze End").withZoneSameInstant(ZoneId.of("UTC"))
+        def freezeStart = ZonedDateTime.parse(event."Freeze Start")
+        def freezeEnd = ZonedDateTime.parse(event."Freeze End")
         def regions = event."Regions"
 
-        println "Freeze Start: ${freezeStart}"
-        println "Current DateTime: ${formattedCurrentDateTime}"
-        println "Freeze End: ${freezeEnd}"
-        println "Regions: ${regions}"
+        print(freezeStart)
+        print(currentDateTime)
+        print(freezeEnd)
+        print(regions)
 
-        currentDateTimeUTC.isAfter(freezeStart) &&
-                currentDateTimeUTC.isBefore(freezeEnd) &&
-                regions.contains(region)
+        currentDateTime.isAfter(freezeStart) &&
+        currentDateTime.isBefore(freezeEnd) &&
+        regions.contains(region)
     }
-
-    println "In Freeze: ${inFreeze}"
+    print(inFreeze)
     return inFreeze != null
 }
 

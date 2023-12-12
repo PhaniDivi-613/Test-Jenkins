@@ -7,7 +7,7 @@ boolean isInCodeFreeze(String region) {
     def freezeData = new groovy.json.JsonSlurper().parseText(jsonData)
 
     // Get the current date and time in Asia/Kolkata time zone
-    def currentDateTime = ZonedDateTime.now(ZoneId.of('Asia/Kolkata')).toLocalDateTime()
+    def currentDateTime = ZonedDateTime.now(ZoneId.of('Asia/Kolkata'))
 
     // Format the currentDateTime to display only date and time without fractional seconds
     def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
