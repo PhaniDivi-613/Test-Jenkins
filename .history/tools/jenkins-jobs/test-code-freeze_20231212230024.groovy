@@ -7,9 +7,15 @@ boolean isInCodeFreeze(String region) {
     def jsonData = readFile 'tools/codefreeze-timings.json'
     def freezeData = new groovy.json.JsonSlurper().parseText(jsonData)
 
-    def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+    // Get the current date and time in Asia/Kolkata time zone
+    def currentDateTime = ZonedDateTime.now(ZoneId.of('Asia/Kolkata')).toLocalDateTime()
 
-    def currentDateTime = ZonedDateTime.now(ZoneId.of('UTC')).format(formatter)
+    // Format the currentDateTime to display only date and time without fractional seconds
+    def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+    def formattedCurrentDateTime = currentDateTime.format(formatter)
+
+    // Convert currentDateTime to UTC for comparison with freezeStart
+    def currentDateTimeUTC = currentDateTime.withZoneSameInstant(ZoneId.of("UTC"))
 
     def inFreeze = freezeData.find { event ->
         def freezeStart = ZonedDateTime.parse(event."Freeze Start").withZoneSameInstant(ZoneId.of("UTC"))
