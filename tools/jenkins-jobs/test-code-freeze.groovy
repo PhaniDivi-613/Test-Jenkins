@@ -33,7 +33,7 @@ node('agent-1') {
     print(env.REGION)
     print(REGION)
 
-    if (isInCodeFreeze(${env.REGION})) {
+    if (isInCodeFreeze(env.REGION)) {
         echo "Code freeze detected in the specified region (${REGION}). Skipping the job."
         currentBuild.result = 'ABORTED'
         error('Code freeze detected')
