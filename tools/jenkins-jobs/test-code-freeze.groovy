@@ -31,7 +31,7 @@ node('agent-1') {
         REGION = "eu-fr2"
     }
 
-    echo "${REGION}" // Use echo instead of print to display the value
+    echo "$REGION" // Use echo instead of print to display the value
     
     if (isInCodeFreeze(env.REGION)) {
         echo "Code freeze detected in the specified region (${env.REGION}). Skipping the job."
