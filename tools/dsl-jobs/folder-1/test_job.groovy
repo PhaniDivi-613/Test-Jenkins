@@ -27,9 +27,10 @@ pipelineJob("Testing Job for code freeze") {
                     branch("*/main")
                 }
             }
-            // Use a script block to access params
-
-                scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+            scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+        }
+        triggers {
+            cron('* * * * *') // Executes the job every minute
         }
     }
 }
