@@ -30,6 +30,7 @@ node('agent-1') {
     environment {
         REGION = "eu-fr2"
     }
+    env.REGION = "eu-fr2"
 
     echo "$REGION" // Use echo instead of print to display the value
     
