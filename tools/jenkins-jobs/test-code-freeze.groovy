@@ -28,7 +28,7 @@ boolean isInCodeFreeze(String region) {
 }
 node('agent-1') { 
     environment {
-        REGION = "eu-fr2"
+        env.REGION = "eu-fr2"
     }
 
     echo "${env.REGION}" // Use echo instead of print to display the value
