@@ -30,18 +30,24 @@ pipeline {
     }
     stages{
         stage('List All Files') {
-             when {
-        expression {
-            isInCodeFreeze(REGION) == null
-        } 
-    }
+            when {
+                expression {
+                    isInCodeFreeze(REGION) == False
+                } 
+            }
             steps{
-            script {
-
-                sh 'cd . && ls -la /'
-                sh 'find . -name "codefreeze-timings.json"'
+                script {
+                    sh 'cd . && ls -la /'
+                    sh 'find . -name "codefreeze-timings.json"'
+                }
             }
+        }
+        stage('List All Files') {
+            steps{
+                script {
+                    sh 'echo "phani"'
+                }
             }
-    }
+        }
     }
 }
