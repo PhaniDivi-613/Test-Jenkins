@@ -33,6 +33,7 @@ pipeline {
     environment{
         REGION = "${env.DEPLOYMENT}.split()"
     }
+    stages{}
     script{
         if (isInCodeFreeze(env.REGION)) {
         echo "Code freeze detected in the specified region (${env.REGION}). Skipping the job."
