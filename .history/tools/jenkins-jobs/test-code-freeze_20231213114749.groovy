@@ -26,11 +26,14 @@ boolean isInCodeFreeze(String region) {
     println "In Freeze: ${inFreeze}"
     return inFreeze != null
 }
-node('agent-1') {
-    def region = env.DEPLOYMENT.split('_')[1]
-    def inCodeFreeze = isInCodeFreeze(region)
-
-    if (isInCodeFreeze()) {
+pipeline {
+    agent {
+        label 'agent-1'
+    }
+    environment {
+        REGION = "${env.DEPLOYMENT.split('_')[1]}"
+    }
+    if (inCodeFreeze) {
         echo "Code freeze detected in the specified region (${region}). Skipping the job."
         currentBuild.result = 'ABORTED'
         error('Code freeze detected')
@@ -48,5 +51,6 @@ node('agent-1') {
                 echo "Stage 2 is executing"
             }
         }
-    } 
+    }
+    
 }
