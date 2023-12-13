@@ -26,31 +26,21 @@ boolean isInCodeFreeze(String region) {
     println "In Freeze: ${inFreeze}"
     return inFreeze != null
 }
-pipeline { 
-    agent {
-        label 'agent-1'
-    }
-    environment{
-        REGION = "${env.DEPLOYMENT}.split()"
-    }
-    stages{}
-    script{
-        if (isInCodeFreeze(env.REGION)) {
-        echo "Code freeze detected in the specified region (${env.REGION}). Skipping the job."
-        currentBuild.result = 'ABORTED'
-        error('Code freeze detected')
-    }
+node('agent-1') { 
+    env.REGION = "${env.DEPLOYMENT.split('_')[1]}"
+
+    if (isInCodeFreeze(env.REGION)) {
+    echo "Code freeze detected in the specified region (${env.REGION}). Skipping the job."
+    currentBuild.result = 'ABORTED'
+    error('Code freeze detected')
     }
     
-    stages{
         stage('List All Files') {
-            steps{
             script {
                 sh 'cd . && ls -la /'
                 sh 'find . -name "codefreeze-timings.json"'
+                sh 'echo $REGION'
             }
-            }
-    }
     }
     post {
         success {
