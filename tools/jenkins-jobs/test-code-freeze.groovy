@@ -42,7 +42,7 @@ pipeline {
                 }
             }
         }
-        stage('List All Files') {
+        stage('simple stage') {
             steps{
                 script {
                     sh 'echo "phani"'
