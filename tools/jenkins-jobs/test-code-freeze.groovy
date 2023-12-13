@@ -29,6 +29,7 @@ boolean isInCodeFreeze(String region) {
 node('agent-1') { 
     environment{
         REGION = "${env.DEPLOYMENT.split('_')[1]}"
+        REGION = "eu-fr2"
     }
     print(env)
     echo "DEBUG: DEPLOYMENT = ${env.DEPLOYMENT}"
