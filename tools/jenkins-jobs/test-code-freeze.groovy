@@ -38,7 +38,7 @@ pipeline {
         stage('Check Code Freeze') {
             steps {
                 script {
-                    def isCronTrigger = currentBuild.rawBuild.getCause(hudson.triggers.TimerTrigger$TimerTriggerCause)
+                    def isCronTrigger = env.BUILD_CAUSE.contains('TIMER')
                     def codeFreezeActive = isInCodeFreeze(env.LOCATION)
 
                     if (codeFreezeActive && isCronTrigger) {
