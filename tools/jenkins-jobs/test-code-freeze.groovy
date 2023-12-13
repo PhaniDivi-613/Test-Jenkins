@@ -15,11 +15,6 @@ boolean isInCodeFreeze(String region) {
         def freezeEnd = ZonedDateTime.parse(event."Freeze End").withZoneSameInstant(ZoneId.of("UTC"))
         def regions = event."Regions"
 
-        println "Freeze Start: ${freezeStart}"
-        println "Current DateTime: ${currentDateTime}"
-        println "Freeze End: ${freezeEnd}"
-        println "Regions: ${regions}"
-
         currentDateTime.isAfter(freezeStart) && currentDateTime.isBefore(freezeEnd) && regions.contains(region)
     }
 
@@ -47,5 +42,28 @@ pipeline {
             }
             }
     }
+    }
+    post {
+        success {
+            script {
+                echo "Success"
+            }
+        }
+        aborted {
+            script { echo "Aborted" }
+        }
+        failure {
+            script { echo "Failure" }
+        }
+        unsuccessful {
+            script {
+                echo "Unsuccessful"
+            }
+        }
+        always {
+            script{
+                echo "Always"
+            }
+        }
     }
 }
