@@ -28,42 +28,20 @@ pipeline {
     environment{
         REGION = "${env.DEPLOYMENT.split('_')[1]}"
     }
-    when {
-        expression {
-            isInCodeFreeze(REGION)
-        }
-    }
     stages{
         stage('List All Files') {
+             when {
+        expression {
+            isInCodeFreeze(REGION) == null
+        } 
+    }
             steps{
             script {
+
                 sh 'cd . && ls -la /'
                 sh 'find . -name "codefreeze-timings.json"'
             }
             }
     }
-    }
-    post {
-        success {
-            script {
-                echo "Success"
-            }
-        }
-        aborted {
-            script { echo "Aborted" }
-        }
-        failure {
-            script { echo "Failure" }
-        }
-        unsuccessful {
-            script {
-                echo "Unsuccessful"
-            }
-        }
-        always {
-            script{
-                echo "Always"
-            }
-        }
     }
 }

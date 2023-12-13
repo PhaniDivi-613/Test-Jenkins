@@ -28,14 +28,8 @@ pipelineJob("Testing Job for code freeze") {
                 }
             }
             // Use a script block to access params
-            script {
-                def deploymentParam = params.DEPLOYMENT
-                if (deploymentParam == 'prod_au-syd') {
-                    scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
-                } else {
-                    scriptPath("tools/jenkins-jobs/test-job-2.groovy")
-                }
-            }
+
+                scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
         }
     }
 }
