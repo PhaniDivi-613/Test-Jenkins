@@ -28,7 +28,13 @@ pipelineJob("Testing Job for code freeze") {
                     branch("*/main")
                 }
             }
-            scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+            if(params.DEPLOYMENT == 'prod_au-syd'){
+                scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+            }
+            else{
+                scriptPath("tools/jenkins-jobs/test-job-2.groovy")
+            }
+            
         }
     }
 }
