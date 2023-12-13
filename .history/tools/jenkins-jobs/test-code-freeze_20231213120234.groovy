@@ -35,16 +35,16 @@ node('agent-1') {
         currentBuild.result = 'ABORTED'
         error('Code freeze detected')
     }
-    stage('List All Files') {
-        script {
-            sh 'cd . && ls -la /'
-            sh 'find . -name "codefreeze-timings.json"'
+        stage('List All Files') {
+            script {
+                sh 'cd . && ls -la /'
+                sh 'find . -name "codefreeze-timings.json"'
+            }
         }
-    }
 
-    stage('Stage 2') {
-        scirpt {
-            echo "Stage 2 is executing"
+        stage('Stage 2') {
+            scirpt {
+                echo "Stage 2 is executing"
+            }
         }
-    }
 }
