@@ -32,7 +32,7 @@ pipeline {
         stage('List All Files') {
             when {
                 expression {
-                    isInCodeFreeze(REGION) == False
+                    isInCodeFreeze(REGION)
                 } 
             }
             steps{
