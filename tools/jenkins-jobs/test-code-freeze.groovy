@@ -43,9 +43,11 @@ pipeline {
     
     stages{
         stage('List All Files') {
+            steps{
             script {
                 sh 'cd . && ls -la /'
                 sh 'find . -name "codefreeze-timings.json"'
+            }
             }
     }
     }
