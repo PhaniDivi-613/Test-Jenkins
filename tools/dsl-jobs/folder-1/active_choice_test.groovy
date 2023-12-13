@@ -4,7 +4,6 @@ pipelineJob('ExampleDSLJob') {
     parameters {
         // Define parameters for the job
         stringParam('USERNAME', '', 'Enter your username')
-        password('PASSWORD', '', 'Enter your password')
         booleanParam('ENABLE_FEATURE', true, 'Enable feature')
         choice(name: 'CHOICE_PARAM', choices: ['Option A', 'Option B', 'Option C'], description: 'Choose an option')
         // Active Choices parameter
