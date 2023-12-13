@@ -5,7 +5,7 @@ pipelineJob('ExampleDSLJob') {
         // Define parameters for the job
         stringParam('USERNAME', '', 'Enter your username')
         booleanParam('ENABLE_FEATURE', true, 'Enable feature')
-        choice(name: 'CHOICE_PARAM', choices: ['Option A', 'Option B', 'Option C'], description: 'Choose an option')
+        choiceParam(name: 'CHOICE_PARAM', choices: ['Option A', 'Option B', 'Option C'], description: 'Choose an option')
         // Active Choices parameter
         [$class: 'CascadeChoiceParameter', 
             choiceType: 'PT_SINGLE_SELECT', 
