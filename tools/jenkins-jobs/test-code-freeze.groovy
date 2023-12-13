@@ -48,27 +48,4 @@ pipeline {
             }
     }
     }
-    post {
-        success {
-            script {
-                echo "Success"
-            }
-        }
-        aborted {
-            script { echo "Aborted" }
-        }
-        failure {
-            script { echo "Failure" }
-        }
-        unsuccessful {
-            script {
-                echo "Unsuccessful"
-            }
-        }
-        always {
-            script{
-                echo "Always"
-            }
-        }
-    }
 }
