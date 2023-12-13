@@ -28,10 +28,10 @@ boolean isInCodeFreeze(String region) {
 }
 node('agent-1') { 
     environment {
-        env.REGION = "eu-fr2"
+        REGION = "eu-fr2"
     }
 
-    echo "${env.REGION}" // Use echo instead of print to display the value
+    echo "${REGION}" // Use echo instead of print to display the value
     
     if (isInCodeFreeze(env.REGION)) {
         echo "Code freeze detected in the specified region (${env.REGION}). Skipping the job."
@@ -40,19 +40,15 @@ node('agent-1') {
     }
     
     stage('List All Files') {
-        steps {
             script {
                 sh 'cd . && ls -la /'
                 sh 'find . -name "codefreeze-timings.json"'
             }
-        }
     }
     
     stage('Stage 2') {
-        steps {
             script {
                 echo "Stage 2 is executing"
             }
-        }
     }
 }
