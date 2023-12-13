@@ -30,7 +30,10 @@ node('agent-1') {
     environment{
         REGION = "${env.DEPLOYMENT.split('_')[1]}"
     }
-    echo "DEBUG: REGION = ${env.REGION}"
+    print(env)
+    echo "DEBUG: DEPLOYMENT = ${env.DEPLOYMENT}"
+    echo "DEBUG: DEPLOYMENT = ${DEPLOYMENT}"
+    echo "DEBUG: REGION = ${REGION}"
 
     if (isInCodeFreeze(${env.REGION})) {
         echo "Code freeze detected in the specified region (${REGION}). Skipping the job."
