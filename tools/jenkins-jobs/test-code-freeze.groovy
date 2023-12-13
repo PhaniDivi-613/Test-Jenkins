@@ -31,11 +31,8 @@ node('agent-1') {
         REGION = "${env.DEPLOYMENT.split('_')[1]}"
         REGION = "eu-fr2"
     }
-    print(env)
-    echo "DEBUG: DEPLOYMENT = ${env.DEPLOYMENT}"
-    echo "DEBUG: DEPLOYMENT = ${DEPLOYMENT}"
-    echo "DEBUG: REGION = ${REGION}"
 
+    print(${env.REGION})
     if (isInCodeFreeze(${env.REGION})) {
         echo "Code freeze detected in the specified region (${REGION}). Skipping the job."
         currentBuild.result = 'ABORTED'
