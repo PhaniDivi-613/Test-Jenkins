@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter
 import java.time.ZoneId
 
 boolean isInCodeFreeze(String region) {
-    def jsonData = readFile 'tools/codefreeze-timings.json'
+    def jsonData = readFile 'codefreeze-timings.json'
     def freezeData = new groovy.json.JsonSlurper().parseText(jsonData)
 
     def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
