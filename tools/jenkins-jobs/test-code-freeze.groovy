@@ -26,7 +26,7 @@ boolean isInCodeFreeze(String region) {
     println "In Freeze: ${inFreeze}"
     return inFreeze != null
 }
-pipelineJob { 
+pipeline { 
     agent {
         label 'agent-1'
     }
@@ -40,7 +40,6 @@ pipelineJob {
         error('Code freeze detected')
     }
     }
-    
     
     stages{
         stage('List All Files') {
