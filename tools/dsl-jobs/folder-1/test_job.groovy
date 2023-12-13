@@ -1,4 +1,3 @@
-
 pipelineJob("Testing Job for code freeze") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
@@ -19,6 +18,9 @@ pipelineJob("Testing Job for code freeze") {
     description()
     keepDependencies(false)
     definition {
+        // Define params outside the cpsScm block
+        def deploymentParam = params.DEPLOYMENT
+        
         cpsScm {
             scm {
                 git {
@@ -28,13 +30,12 @@ pipelineJob("Testing Job for code freeze") {
                     branch("*/main")
                 }
             }
-            if(params.DEPLOYMENT == 'prod_au-syd'){
+            // Use the defined params within the block
+            if (deploymentParam == 'prod_au-syd') {
                 scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
-            }
-            else{
+            } else {
                 scriptPath("tools/jenkins-jobs/test-job-2.groovy")
             }
-            
         }
     }
 }
