@@ -33,7 +33,7 @@ pipeline {
         stage('Check Code Freeze') {
             steps {
                 script {
-                    def isCronTrigger = currentBuild.rawBuild.getCause(hudson.triggers.TimerTrigger$TimerTriggerCause) == True
+                    def isCronTrigger = currentBuild.rawBuild.getCause(hudson.triggers.TimerTrigger$TimerTriggerCause) != null
                     def codeFreezeActive = isInCodeFreeze(env.LOCATION)
 
                     if (codeFreezeActive && isCronTrigger) {
@@ -55,7 +55,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }       
         stage('List All Files') {
             steps {
                 script {
