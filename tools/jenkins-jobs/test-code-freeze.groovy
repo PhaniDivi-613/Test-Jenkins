@@ -27,7 +27,7 @@ pipeline {
         label 'agent-1'
     }
     environment {
-        REGION = "${env.DEPLOYMENT.split('_')[1]}"
+        LOCATION = "${env.DEPLOYMENT.split('_')[1]}"
     }
     stages {
         stage('Check Code Freeze') {
@@ -59,15 +59,15 @@ pipeline {
         stage('List All Files') {
             steps {
                 script {
-                    sh 'cd . && ls -la /'
+                    sh 'ls -la /'
                     sh 'find . -name "codefreeze-timings.json"'
                 }
             }
         }
-        stage('Simple Stage') {
+        stage('Stage 3') {
             steps {
                 script {
-                    sh 'echo "phani"'
+                    sh 'echo "Stage 3 executed"'
                 }
             }
         }
