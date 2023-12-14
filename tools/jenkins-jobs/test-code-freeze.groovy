@@ -15,11 +15,6 @@ boolean isInCodeFreeze(String region) {
         def freezeEnd = ZonedDateTime.parse(event."Freeze End").withZoneSameInstant(ZoneId.of("UTC"))
         def regions = event."Regions"
 
-        println "Freeze Start: ${freezeStart}"
-        println "Current DateTime: ${currentDateTime}"
-        println "Freeze End: ${freezeEnd}"
-        println "Regions: ${regions}"
-
         currentDateTime.isAfter(freezeStart) && currentDateTime.isBefore(freezeEnd) && regions.contains(region)
     }
 
@@ -32,31 +27,22 @@ pipeline {
         label 'agent-1'
     }
     environment {
-        LOCATION = "${env.DEPLOYMENT.split('_')[1]}"
+        REGION = "${env.DEPLOYMENT.split('_')[1]}"
     }
     stages {
         stage('Check Code Freeze') {
             steps {
                 script {
-                    def isCronTrigger = env.BUILD_CAUSE.contains('TIMER')
-                    def codeFreezeActive = isInCodeFreeze(env.LOCATION)
-
-                    if (codeFreezeActive && isCronTrigger) {
-                        error "Code freeze is active for ${env.LOCATION} and job triggered by cron. Halting the job."
-                    } else if (codeFreezeActive && !isCronTrigger) {
-                        def userInput = input(
-                            id: 'codeFreezeConfirmation',
-                            message: "Code freeze is active for ${env.LOCATION}. Do you want to proceed?",
-                            parameters: [choice(choices: ['Yes', 'No'], description: 'Choose whether to proceed', name: 'Confirmation')]
-                        )
-                        
-                        if (userInput == 'No') {
-                            error "User opted not to proceed during code freeze. Halting the job."
-                        } else {
-                            echo "Continuing the job despite code freeze."
-                        }
+                    if(currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)) {
+                        echo "Triggered by a user"
+                    } else if(currentBuild.rawBuild.getCause(hudson.triggers.TimerTrigger$TimerTriggerCause)) {
+                        echo "Triggered by a timer/cron"
+                    }
+                    def inCodeFreeze = isInCodeFreeze(env.REGION)
+                    if (inCodeFreeze) {
+                        error "Code freeze is active for ${env.REGION}. Halting the job."
                     } else {
-                        echo "No code freeze active for ${env.LOCATION}. Continuing the job."
+                        echo "No code freeze active for ${env.REGION}. Continuing the job."
                     }
                 }
             }
