@@ -15,21 +15,19 @@ job('exampleJob') {
     parameters {
         stringParam('CRON_EXPRESSION', 'H * * * *', 'Cron Expression')
     }
-    keepDependencies(false)
-    definition {
-        cpsScm {
-            scm {
-                git {
-                    remote {
-                        url("https://github.com/PhaniDivi-613/Test-Jenkins.git")
-                    }
-                    branch("*/main")
-                }
+    steps {
+        // Define your build steps here if needed
+    }
+    concurrentBuild(false) // Ensure only one build runs at a time (if required)
+    scm {
+        git {
+            remote {
+                url('https://github.com/PhaniDivi-613/Test-Jenkins.git')
             }
-            scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+            branch('*/main')
         }
-        triggers {
-            cron("${params.CRON_EXPRESSION}")
-        }
+    }
+    triggers {
+        cron(spec: "${params.CRON_EXPRESSION}")
     }
 }
