@@ -13,26 +13,6 @@ job('exampleJob') {
         }
     }
     parameters {
-        activeChoiceParam('REGION') {
-            description('Select the region based on date')
-            script {
-                groovyScript("""
-                    def date = new Date()
-                    def calendar = new GregorianCalendar()
-                    calendar.setTime(date)
-                    def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-                    def items = []
-
-                    if (dayOfMonth % 3 == 0) {
-                        items.add("au-syd")
-                    }
-                    if (dayOfMonth % 5 == 0) {
-                        items.add("eu-fr2")
-                    }
-                    return items
-                """)
-            }
-        }
         stringParam('CRON_EXPRESSION', 'H * * * *', 'Cron Expression')
     }
     keepDependencies(false)
