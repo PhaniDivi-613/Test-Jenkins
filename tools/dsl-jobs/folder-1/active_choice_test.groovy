@@ -1,56 +1,55 @@
-pipelineJob('ExampleDSLJob') {
-    description('This is an example DSL job')
-
-    parameters {
-        // Define parameters for the job
-        stringParam('USERNAME', '', 'Enter your username')
-        booleanParam('ENABLE_FEATURE', true, 'Enable feature')
-        choiceParam('CHOICE_PARAM', ['Option A', 'Option B', 'Option C'], 'Choose an option')
-        // Active Choices parameter
-        [$class: 'CascadeChoiceParameter', 
-            choiceType: 'PT_SINGLE_SELECT', 
-            description: 'Select an option', 
-            filterLength: 1, 
-            filterable: false, 
-            name: 'DynamicChoices', 
-            referencedParameters: '', 
-            script: [
-                $class: 'GroovyScript', 
-                fallbackScript: 'return ["Error: Unable to fetch data"]', 
-                script: [
-                    $class: 'GroovyScript', 
-                    script: 'return calculateChoices()', // Call the method to generate the list
-                ],
-            ],
-        ]
-    }
-
-    definition {
-        cps {
-            script("""
-                // Your pipeline script here
-                node {
-                    stage('Example Stage') {
-                        echo "Hello, Jenkins DSL!"
-                        // Use parameters in your pipeline
-                        echo "Username: \${params.USERNAME}"
-                        echo "Feature enabled: \${params.ENABLE_FEATURE}"
-                        echo "Chosen option: \${params.CHOICE_PARAM}"
-                        // Use the Active Choices parameter
-                        echo "Dynamic choice: \${params.DynamicChoices}"
-                    }
+job('exampleJob') {
+    properties {
+        githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
+        buildDiscarder {
+            strategy {
+                logRotator {
+                    daysToKeepStr("-1")
+                    numToKeepStr("199")
+                    artifactDaysToKeepStr("-1")
+                    artifactNumToKeepStr("-1")
                 }
-            """)
+            }
         }
     }
-}
+    parameters {
+        activeChoiceParam('REGION') {
+            description('Select the region based on date')
+            script {
+                groovyScript("""
+                    def date = new Date()
+                    def calendar = new GregorianCalendar()
+                    calendar.setTime(date)
+                    def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+                    def items = []
 
-// Method to generate choices dynamically
-def calculateChoices() {
-    def list = [] // Initialize an empty list
-    // Generate values dynamically (replace this with your logic)
-    for (int i = 1; i <= 10; i++) {
-        list.add("Option ${i}") // Add options to the list
+                    if (dayOfMonth % 3 == 0) {
+                        items.add("au-syd")
+                    }
+                    if (dayOfMonth % 5 == 0) {
+                        items.add("eu-fr2")
+                    }
+                    return items
+                """)
+            }
+        }
+        stringParam('CRON_EXPRESSION', 'H * * * *', 'Cron Expression')
     }
-    return list // Return the generated list
+    keepDependencies(false)
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url("https://github.com/PhaniDivi-613/Test-Jenkins.git")
+                    }
+                    branch("*/main")
+                }
+            }
+            scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
+        }
+        triggers {
+            cron("${params.CRON_EXPRESSION}")
+        }
+    }
 }
