@@ -38,11 +38,4 @@ pipelineJob("Testing Job for code freeze") {
 ''')
         }
     }
-    configure { project, params ->
-        project / 'builders' << 'org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty' {}
-        project / 'disabled' << true
-        if (params('DEPLOYMENT') == "prod_eu-fr2") {
-            project / 'disabled' << false
-        }
-    }
 }
