@@ -38,13 +38,13 @@ pipelineJob("Testing Job for code freeze") {
 ''')
         }
     }
-    configure {
+    configure { project ->
         def currentMinute = new Date().format('mm').toInteger()
         def deploymentToRun = currentMinute % 2 == 0 ? "prod_eu-fr2" : "prod_au-syd"
         def triggerSpec = '''TZ=America/Toronto
-* * * * * %DEPLOYMENT=''' + deploymentToRun
-        xml.append(new groovy.xml.StreamingMarkupBuilder().bind {
+    * * * * * %DEPLOYMENT=''' + deploymentToRun
+        project / triggers {
             parameterizedCron(triggerSpec)
-        })
+        }
     }
 }
