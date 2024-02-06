@@ -39,12 +39,8 @@ pipelineJob("Testing Job for code freeze") {
         }
     }
     configure {
-        def today = new Date()
-        def calendar = new GregorianCalendar()
-        calendar.setTime(today)
-        def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-        
-        def deploymentToRun = dayOfMonth % 2 == 0 ? "prod_eu-fr2" : "prod_au-syd"
+        def currentMinute = new Date().format('mm').toInteger()
+        def deploymentToRun = currentMinute % 2 == 0 ? "prod_eu-fr2" : "prod_au-syd"
         def triggerSpec = '''TZ=America/Toronto
 * * * * * %DEPLOYMENT=''' + deploymentToRun
         xml.append(new groovy.xml.StreamingMarkupBuilder().bind {
