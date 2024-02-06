@@ -33,4 +33,12 @@ pipelineJob("Testing Job for code freeze") {
             cron('* * * * *') // Executes the job every minute
         }
     }
+    configure {
+        def jobDSL = it / 'builders' / 'javaposse.jobdsl.plugin.ExecuteDslScripts'
+        jobDSL / 'using' / 'scriptText' << '''
+if (params.DEPLOYMENT != 'prod_au-syd') {
+    build job: 'Testing Job for code freeze', parameters: [string(name: 'DEPLOYMENT', value: params.DEPLOYMENT)]
+}
+'''
+    }
 }
