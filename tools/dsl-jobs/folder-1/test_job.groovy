@@ -30,14 +30,6 @@ pipelineJob("Testing Job for code freeze") {
             scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
         }
     }
-    triggers {
-        parameterizedCron {
-            parameterizedSpecification('''TZ=America/Toronto
-* * * * * %DEPLOYMENT=prod_au-syd
-* * * * * %DEPLOYMENT=prod_eu-fr2
-''')
-        }
-    }
     configure { project ->
         def currentMinute = new Date().format('mm').toInteger()
         def deploymentToRun = currentMinute % 2 == 0 ? "prod_eu-fr2" : "prod_au-syd"
