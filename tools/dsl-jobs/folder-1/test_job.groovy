@@ -31,14 +31,18 @@ pipelineJob("Testing Job for code freeze") {
         }
     }
     triggers {
-        configure { project ->
-	        def currentMinute = new Date().format('mm').toInteger()
-            def deploymentToRun = currentMinute % 3 == 0 ? "prod_eu-fr2" : "prod_au-syd"
-            def triggerSpec = '''TZ=America/Toronto
-* * * * * %DEPLOYMENT=''' + deploymentToRun
-            project / 'triggers' << 'hudson.triggers.TimerTrigger' {
-                spec(triggerSpec)
-            }
+        parameterizedCron {
+            parameterizedSpecification('''TZ=America/Toronto
+* * * * * %DEPLOYMENT=prod_au-syd
+* * * * * %DEPLOYMENT=prod_eu-fr2
+''')
+        }
+    }
+    configure { project ->
+        project / 'builders' << 'org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty' {}
+        project / 'disabled' << true
+        if (params.DEPLOYMENT in ["prod_eu-fr2"]) {
+            project / 'disabled' << false
         }
     }
 }
