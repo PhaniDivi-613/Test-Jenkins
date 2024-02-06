@@ -32,10 +32,12 @@ pipelineJob("Testing Job for code freeze") {
     }
     triggers {
         configure { project ->
-            def cronSpec = '''H/3 * * * * %DEPLOYMENT=prod_au-syd
-* * * * * %DEPLOYMENT=prod_eu-fr2'''
+	        def currentMinute = new Date().format('mm').toInteger()
+            def deploymentToRun = currentMinute % 3 == 0 ? "prod_eu-fr2" : "prod_au-syd"
+            def triggerSpec = '''TZ=America/Toronto
+* * * * * %DEPLOYMENT=''' + deploymentToRun
             project / 'triggers' << 'hudson.triggers.TimerTrigger' {
-                spec(cronSpec)
+                spec(triggerSpec)
             }
         }
     }
