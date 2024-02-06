@@ -15,7 +15,7 @@ pipelineJob("Testing Job for code freeze") {
     parameters {
         choiceParam('DEPLOYMENT', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
     }
-    description()
+    description('Your job description goes here') // Add your job description
     keepDependencies(false)
     definition {
         cpsScm {
@@ -29,15 +29,13 @@ pipelineJob("Testing Job for code freeze") {
             }
             scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
         }
-        pipelineTriggers {
-            triggers {
-                parameterizedCron {
-                    parameterizedSpecification('''TZ=America/Toronto
+    }
+    triggers {
+        parameterizedCron {
+            parameterizedSpecification('''TZ=America/Toronto
 * * * * * %DEPLOYMENT=prod_au-syd
 * * * * * %DEPLOYMENT=prod_eu-fr2
 ''')
-                }
-            }
         }
     }
     configure {
