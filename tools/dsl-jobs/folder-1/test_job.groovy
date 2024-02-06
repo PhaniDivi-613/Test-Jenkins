@@ -29,15 +29,22 @@ pipelineJob("Testing Job for code freeze") {
             }
             scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
         }
-        triggers {
-            cron('* * * * *') // Executes the job every minute
+        pipelineTriggers {
+            triggers {
+                parameterizedCron {
+                    parameterizedSpecification('''TZ=America/Toronto
+* * * * * %DEPLOYMENT=prod_au-syd
+* * * * * %DEPLOYMENT=prod_eu-fr2
+''')
+                }
+            }
         }
     }
     configure {
         def jobDSL = it / 'builders' / 'javaposse.jobdsl.plugin.ExecuteDslScripts'
         jobDSL / 'using' / 'scriptText' << '''
 if (params.DEPLOYMENT != 'prod_au-syd') {
-    build job: 'Testing Job for code', parameters: [string(name: 'DEPLOYMENT', value: params.DEPLOYMENT)]
+    build job: 'Testing Job for code freeze', parameters: [string(name: 'DEPLOYMENT', value: params.DEPLOYMENT)]
 }
 '''
     }
