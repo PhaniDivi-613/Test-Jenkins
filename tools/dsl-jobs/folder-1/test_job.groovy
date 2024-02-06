@@ -39,11 +39,16 @@ pipelineJob("Testing Job for code freeze") {
         }
     }
     configure {
-        def jobDSL = it / 'builders' / 'javaposse.jobdsl.plugin.ExecuteDslScripts'
-        jobDSL / 'using' / 'scriptText' << '''
-if (params.DEPLOYMENT != 'prod_au-syd') {
-    build job: 'Testing Job for code freeze', parameters: [string(name: 'DEPLOYMENT', value: params.DEPLOYMENT)]
-}
-'''
+        def today = new Date()
+        def calendar = new GregorianCalendar()
+        calendar.setTime(today)
+        def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        
+        def deploymentToRun = dayOfMonth % 2 == 0 ? "prod_eu-fr2" : "prod_au-syd"
+        def triggerSpec = '''TZ=America/Toronto
+* * * * * %DEPLOYMENT=''' + deploymentToRun
+        xml.append(new groovy.xml.StreamingMarkupBuilder().bind {
+            parameterizedCron(triggerSpec)
+        })
     }
 }
