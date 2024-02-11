@@ -10,9 +10,10 @@ pipeline {
         stage('Check Code Freeze') {
             steps {
                 script {
+                    BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
+                    echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
 
                     sh """
-                        echo "BUILD_USER: ${BUILD_USER}"
                         cd scripts
                         python3 code-freeze.py
                     """
