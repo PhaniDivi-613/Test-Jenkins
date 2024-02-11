@@ -34,6 +34,7 @@ if __name__ == "__main__":
 
     code_freeze_active = is_code_freeze(region)
     build_trigger_by = os.getenv('BUILD_TRIGGER_BY')
+    despite_code_freeze = os.getenv('DESPITE_CODE_FREEZE')
     if build_trigger_by and 'timer' in build_trigger_by.lower():
         cron_trigger = True
     elif build_trigger_by and 'user' in build_trigger_by.lower():
@@ -45,8 +46,7 @@ if __name__ == "__main__":
         print("Code freeze is active for {} and job triggered by cron. Halting the job.".format(region))
         sys.exit(6)
     elif(code_freeze_active and not cron_trigger):
-        user_input = input("Code freeze is active for {}. Do you want to proceed? (Yes/No): ".format(region))
-        if(user_input.lower() == 'no'):
+        if(not despite_code_freeze):
             print("Opted not to proceed during code freeze. Halting the job.")
             sys.exit(6)
         else:
