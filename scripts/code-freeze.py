@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 import os
+import subprocess
 
 def is_code_freeze(region):
     """
@@ -26,5 +27,21 @@ if __name__ == "__main__":
     region = os.getenv("LOCATION")
     if(is_code_freeze(region)):
         print("{} is in code freeze".format(region))
+        groovy_script = """
+        def userInput = input(
+           id: 'codeFreezeConfirmation',
+           message: "Code freeze is active for {}. Do you want to proceed?",
+           parameters: [choice(choices: ['Yes', 'No'], description: 'Choose whether to proceed', name: 'Confirmation')]
+        )
+        """.format(region)
+        subprocess.run(['groovy', '-e', groovy_script])
     else:
+        groovy_script = """
+        def userInput = input(
+           id: 'codeFreezeConfirmation',
+           message: "Code freeze is not active for {}. Do you want to proceed?",
+           parameters: [choice(choices: ['Yes', 'No'], description: 'Choose whether to proceed', name: 'Confirmation')]
+        )
+        """.format(region)
+        subprocess.run(['groovy', '-e', groovy_script])
         print("{} is not in code freeze".format(region))
