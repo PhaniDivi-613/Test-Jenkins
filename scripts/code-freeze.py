@@ -19,12 +19,6 @@ def is_code_freeze(region):
         if region in event["Regions"]:
             freeze_start = datetime.fromisoformat(event["Freeze Start"][:-1])
             freeze_end = datetime.fromisoformat(event["Freeze End"][:-1])
-
-            print(freeze_start)
-            print(freeze_end)
-            print(current_time)
-            print(event["Regions"])
-            print()
             if freeze_start <= current_time <= freeze_end:
                 return True
     return False
@@ -46,6 +40,7 @@ if __name__ == "__main__":
         print("Code freeze is active for {} and job triggered by cron. Halting the job.".format(region))
         sys.exit(6)
     elif(code_freeze_active and not cron_trigger):
+        print("despite_code_freeze", despite_code_freeze)
         if(despite_code_freeze):
             print("Continuing the job despite code freeze.")
         else:
