@@ -12,7 +12,7 @@ pipeline {
                 script {
 
                     sh """
-                        echo "BUILD_CAUSE: ${BUILD_CAUSE}"
+                        echo "BUILD_USER: ${BUILD_USER}"
                         cd scripts
                         python3 code-freeze.py
                     """
