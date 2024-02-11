@@ -12,6 +12,7 @@ pipeline {
             steps {
                 script {
                     sh """
+                        echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
                         cd scripts
                         python3 code-freeze.py
                     """
