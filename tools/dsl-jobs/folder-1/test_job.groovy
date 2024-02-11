@@ -1,4 +1,4 @@
-pipelineJob("Testing Job for code freeze") {
+pipelineJob("Testing for code freeze") {
     properties {
         githubProjectUrl('git@github.com:PhaniDivi-613/Test-Jenkins.git')
         buildDiscarder {
