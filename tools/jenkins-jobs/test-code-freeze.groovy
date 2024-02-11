@@ -12,7 +12,6 @@ pipeline {
                 script {
 
                     sh """
-                        echo "CAUSE: ${CAUSE}"
                         echo "BUILD_USER: ${BUILD_USER}"
 
                         cd scripts
