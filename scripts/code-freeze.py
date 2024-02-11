@@ -20,6 +20,11 @@ def is_code_freeze(region):
             freeze_start = datetime.fromisoformat(event["Freeze Start"][:-1])
             freeze_end = datetime.fromisoformat(event["Freeze End"][:-1])
 
+            print(freeze_start)
+            print(freeze_end)
+            print(current_time)
+            print(event["Regions"])
+            print()
             if freeze_start <= current_time <= freeze_end:
                 return True
     return False
