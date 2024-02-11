@@ -6,16 +6,13 @@ pipeline {
         LOCATION = "${env.DEPLOYMENT.split('_')[1]}"
         ENVIRONMENT = "${env.DEPLOYMENT.split('_')[0]}"
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
-        DESPITE_CODE_FREEZE = "${DESPITE_CODE_FREEZE}"
+        // DESPITE_CODE_FREEZE = "${DESPITE_CODE_FREEZE}"
     }
     stages {
         stage('Check Code Freeze') {
             steps {
                 script {
                     sh """
-                        unset DESPITE_CODE_FREEZE
-                        echo ${DESPITE_CODE_FREEZE}
-                        echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
                         cd scripts
                         python3 code-freeze.py
                     """
