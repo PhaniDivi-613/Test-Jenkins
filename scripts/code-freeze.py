@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 import os
 import subprocess
+import sys
 
 def is_code_freeze(region):
     """
@@ -25,23 +26,26 @@ def is_code_freeze(region):
 
 if __name__ == "__main__":
     region = os.getenv("LOCATION")
-    if(is_code_freeze(region)):
-        print("{} is in code freeze".format(region))
-        groovy_script = """
-        def userInput = input(
-           id: 'codeFreezeConfirmation',
-           message: "Code freeze is active for {}. Do you want to proceed?",
-           parameters: [choice(choices: ['Yes', 'No'], description: 'Choose whether to proceed', name: 'Confirmation')]
-        )
-        """.format(region)
-        subprocess.run(['groovy', '-e', groovy_script])
+
+    code_freeze_active = is_code_freeze(region)
+    build_trigger_by = os.getenv('BUILD_TRIGGER_BY')
+    if build_trigger_by and 'timer' in build_trigger_by.lower():
+        cron_trigger = True
+    elif build_trigger_by and 'user' in build_trigger_by.lower():
+        cron_trigger = False
     else:
-        groovy_script = """
-        def userInput = input(
-           id: 'codeFreezeConfirmation',
-           message: "Code freeze is not active for {}. Do you want to proceed?",
-           parameters: [choice(choices: ['Yes', 'No'], description: 'Choose whether to proceed', name: 'Confirmation')]
-        )
-        """.format(region)
-        subprocess.run(['groovy', '-e', groovy_script])
-        print("{} is not in code freeze".format(region))
+        sys.exit(7)
+    
+    if (code_freeze_active and cron_trigger):
+        print("Code freeze is active for {} and job triggered by cron. Halting the job.".format(region))
+        sys.exit(6)
+    elif(code_freeze_active and not cron_trigger):
+        user_input = input("Code freeze is active for {}. Do you want to proceed? (Yes/No): ".format(region))
+        if(user_input.lower() == 'no'):
+            print("Opted not to proceed during code freeze. Halting the job.")
+            sys.exit(6)
+        else:
+            print("Continuing the job despite code freeze.")
+    else:
+        print("No code freeze active for {}. Continuing the job".format(region))
+
