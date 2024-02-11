@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import subprocess
 import sys
+from distutils.util import strtobool
 
 def is_code_freeze(region):
     """
@@ -28,7 +29,7 @@ if __name__ == "__main__":
 
     code_freeze_active = is_code_freeze(region)
     build_trigger_by = os.getenv('BUILD_TRIGGER_BY')
-    despite_code_freeze = os.getenv('DESPITE_CODE_FREEZE')
+    despite_code_freeze = bool(strtobool(os.getenv('DESPITE_CODE_FREEZE', True)))
     if build_trigger_by and 'timer' in build_trigger_by.lower():
         cron_trigger = True
     elif build_trigger_by and 'user' in build_trigger_by.lower():
@@ -40,12 +41,11 @@ if __name__ == "__main__":
         print("Code freeze is active for {} and job triggered by cron. Halting the job.".format(region))
         sys.exit(6)
     elif(code_freeze_active and not cron_trigger):
-        print("despite_code_freeze", despite_code_freeze)
         if(despite_code_freeze):
             print("Continuing the job despite code freeze.")
         else:
             print("Opted not to proceed during code freeze. Halting the job.")
-            sys.exit(6)  
+            sys.exit(6)
     else:
         print("No code freeze active for {}. Continuing the job".format(region))
 
