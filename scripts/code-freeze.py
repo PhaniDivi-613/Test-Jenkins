@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     code_freeze_active = is_code_freeze(region)
     build_trigger_by = os.getenv('BUILD_TRIGGER_BY')
-    despite_code_freeze = bool(strtobool(os.getenv('DESPITE_CODE_FREEZE', True)))
+    despite_code_freeze = bool(strtobool(os.getenv('DESPITE_CODE_FREEZE')))
     if build_trigger_by and 'timer' in build_trigger_by.lower():
         cron_trigger = True
     elif build_trigger_by and 'user' in build_trigger_by.lower():
