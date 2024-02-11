@@ -5,7 +5,7 @@ pipeline {
     environment {
         LOCATION = "${env.DEPLOYMENT.split('_')[1]}"
         ENVIRONMENT = "${env.DEPLOYMENT.split('_')[0]}"
-        BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
+        BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
     }
     stages {
         stage('Check Code Freeze') {
