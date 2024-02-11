@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                        unset ${DESPITE_CODE_FREEZE}
-                        echo ${DESPITE_CODE_FREEZE}
+                        unset DESPITE_CODE_FREEZE
+                        echo ${ESPITE_CODE_FREEZE}
                         echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
                         cd scripts
                         python3 code-freeze.py
