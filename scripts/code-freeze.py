@@ -46,11 +46,11 @@ if __name__ == "__main__":
         print("Code freeze is active for {} and job triggered by cron. Halting the job.".format(region))
         sys.exit(6)
     elif(code_freeze_active and not cron_trigger):
-        if(not despite_code_freeze):
-            print("Opted not to proceed during code freeze. Halting the job.")
-            sys.exit(6)
-        else:
+        if(despite_code_freeze):
             print("Continuing the job despite code freeze.")
+        else:
+            print("Opted not to proceed during code freeze. Halting the job.")
+            sys.exit(6)  
     else:
         print("No code freeze active for {}. Continuing the job".format(region))
 
