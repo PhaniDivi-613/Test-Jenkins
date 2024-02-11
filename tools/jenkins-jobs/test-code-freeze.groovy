@@ -12,6 +12,7 @@ pipeline {
                 script {
 
                     sh """
+                        echo "BUILD_CAUSE: ${BUILD_CAUSE}"
                         cd scripts
                         python3 code-freeze.py
                     """
