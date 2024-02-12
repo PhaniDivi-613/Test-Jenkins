@@ -14,7 +14,7 @@ pipelineJob("Testing for code freeze") {
     }
     parameters {
         choiceParam('DEPLOYMENT', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
-        // booleanParam('DESPITE_CODE_FREEZE', false, "Choose to set when to promote despite of code freeze active in the given region")
+        booleanParam('DESPITE_CODE_FREEZE', false, "Choose to set when to promote despite of code freeze active in the given region")
     }
     description('Your job description goes here') // Add your job description
     keepDependencies(false)
