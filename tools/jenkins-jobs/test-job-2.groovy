@@ -2,7 +2,9 @@ pipeline {
     agent {
         label 'agent-1'
     }
-
+    environment{
+        SKIP = "true"
+    }
     stages {
         stage('Set Skip Parameter') {
             steps {
@@ -16,7 +18,7 @@ pipeline {
                     def skip = (dayOfMonth % 2 == 1) ? true : false
                     
                     // Set parameter to skip successive stages
-                    params.SKIP = skip.toString()
+                    env.SKIP = skip.toString()
                 }
             }
         }
@@ -33,7 +35,7 @@ pipeline {
         
         stage('Test') {
             when {
-                expression { params.SKIP != 'true' }
+                expression { env.SKIP != 'true' }
             }
             steps {
                 script{
@@ -46,7 +48,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                expression { params.SKIP != 'true' }
+                expression { env.SKIP != 'true' }
             }
             steps {
                 script{
@@ -60,4 +62,3 @@ pipeline {
         // Add more stages here if needed
     }
 }
-
