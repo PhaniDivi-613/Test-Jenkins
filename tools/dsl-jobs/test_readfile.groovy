@@ -28,7 +28,7 @@ pipelineJob("Testing Job 1") {
                     branch("*/main")
                 }
             }
-            scriptPath("tools/jenkins-jobs/test-readfile.groovy")
+            scriptPath("tools/jenkins-jobs/test-job-2.groovy")
         }
     }
 }
