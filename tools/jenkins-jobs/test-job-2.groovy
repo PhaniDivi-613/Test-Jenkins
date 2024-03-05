@@ -19,7 +19,7 @@ pipeline {
                     
                     // Set parameter to skip successive stages
                     env.RELEASE_FILE_AVAILABLE = "false"
-                    echo ${RELEASE_FILE_AVAILABLE}
+                    echo "${RELEASE_FILE_AVAILABLE}"
                     println env.RELEASE_FILE_AVAILABLE
                 }
             }
