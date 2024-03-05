@@ -4,12 +4,7 @@ pipeline {
     }
 
     stages {
-        stage('Stage 1') {
-            steps {
-                echo "Stage 1 Executed"
-            }
-        }
-        stage('Stage 2') {
+        stage('Set Skip Parameter') {
             steps {
                 script {
                     def currentDate = new Date()
@@ -17,39 +12,40 @@ pipeline {
                     calendar.setTime(currentDate)
                     def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
                     
-                    if (dayOfMonth % 2 != 0) {
-                        echo "Current date is odd. Skipping subsequent stages."
-                        currentBuild.result = 'ABORTED'
-                    } else {
-                        echo "Current date is even. Continuing with subsequent stages."
-                    }
+                    // Check if day is odd
+                    def skip = (dayOfMonth % 2 == 1) ? true : false
+                    
+                    // Set parameter to skip successive stages
+                    params.SKIP = skip.toString()
                 }
             }
         }
-        stage('Stage 3') {
-            when {
-                expression { currentBuild.result == 'SUCCESS' }
-            }
+        
+        stage('Build') {
             steps {
-                echo "Stage 3 Executed"
+                // Your build steps here
             }
         }
-        stage('Stage 4') {
+        
+        stage('Test') {
             when {
-                expression { currentBuild.result == 'SUCCESS' }
+                expression { params.SKIP != 'true' }
             }
             steps {
-                echo "Stage 4 Executed"
+                // Your test steps here
             }
         }
-        stage('Stage 5') {
+        
+        stage('Deploy') {
             when {
-                expression { currentBuild.result == 'SUCCESS' }
+                expression { params.SKIP != 'true' }
             }
             steps {
-                echo "Stage 5 Executed"
+                // Your deploy steps here
             }
         }
+        
+        // Add more stages here if needed
     }
 }
 
