@@ -3,7 +3,7 @@ pipeline {
         label 'agent-1'
     }
     environment{
-        SKIP = "true"
+        RELEASE_FILE_AVAILABLE = "true"
     }
     stages {
         stage('Set Skip Parameter') {
@@ -18,7 +18,9 @@ pipeline {
                     def skip = (dayOfMonth % 2 == 1) ? true : false
                     
                     // Set parameter to skip successive stages
-                    env.SKIP = skip.toString()
+                    env.RELEASE_FILE_AVAILABLE = "false"
+                    echo ${RELEASE_FILE_AVAILABLE}
+                    println env.RELEASE_FILE_AVAILABLE
                 }
             }
         }
@@ -35,7 +37,7 @@ pipeline {
         
         stage('Test') {
             when {
-                expression { env.SKIP != 'true' }
+                expression { env.RELEASE_FILE_AVAILABLE == 'true' }
             }
             steps {
                 script{
@@ -48,7 +50,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                expression { env.SKIP != 'true' }
+                expression { env.RELEASE_FILE_AVAILABLE == 'true' }
             }
             steps {
                 script{
