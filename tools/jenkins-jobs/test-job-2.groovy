@@ -16,7 +16,7 @@ pipeline {
                     
                     
                     // Set parameter to skip successive stages
-                    env.ODD = (dayOfMonth % 2 == 1) ? true : false
+                    env.ODD = (dayOfMonth % 2 == 0) ? true : false
                 }
             }
         }
