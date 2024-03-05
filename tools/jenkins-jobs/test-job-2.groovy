@@ -3,7 +3,7 @@ pipeline {
         label 'agent-1'
     }
     environment{
-        SKIP = "true"
+        SKIP = true
     }
     stages {
         stage('Set Skip Parameter') {
@@ -14,11 +14,9 @@ pipeline {
                     calendar.setTime(currentDate)
                     def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
                     
-                    // Check if day is odd
-                    def skip = (dayOfMonth % 2 == 1) ? true : false
                     
                     // Set parameter to skip successive stages
-                    env.SKIP = skip.toString()
+                    env.SKIP = (dayOfMonth % 2 == 1) ? true : false
                 }
             }
         }
@@ -35,7 +33,7 @@ pipeline {
         
         stage('Test') {
             when {
-                expression { env.SKIP != 'true' }
+                expression { env.SKIP != true }
             }
             steps {
                 script{
@@ -48,7 +46,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                expression { env.SKIP != 'true' }
+                expression { env.SKIP != true }
             }
             steps {
                 script{
