@@ -3,7 +3,7 @@ pipeline {
         label 'agent-1'
     }
     environment{
-        SKIP = true
+        ODD = true
     }
     stages {
         stage('Set Skip Parameter') {
@@ -16,7 +16,7 @@ pipeline {
                     
                     
                     // Set parameter to skip successive stages
-                    env.SKIP = (dayOfMonth % 2 == 1) ? true : false
+                    env.ODD = (dayOfMonth % 2 == 1) ? true : false
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         
         stage('Test') {
             when {
-                expression { env.SKIP != true }
+                expression { env.ODD }
             }
             steps {
                 script{
@@ -46,7 +46,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                expression { env.SKIP != true }
+                expression { env.ODD }
             }
             steps {
                 script{
