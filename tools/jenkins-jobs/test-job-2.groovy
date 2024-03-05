@@ -19,7 +19,7 @@ pipeline {
                     
                     if (dayOfMonth % 2 != 0) {
                         echo "Current date is odd. Skipping subsequent stages."
-                        currentBuild.result = 'SUCCESS'
+                        currentBuild.result = 'ABORTED'
                         return
                     } else {
                         echo "Current date is even. Continuing with subsequent stages."
