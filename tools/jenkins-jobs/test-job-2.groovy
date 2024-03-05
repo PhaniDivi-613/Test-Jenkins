@@ -23,6 +23,10 @@ pipeline {
         
         stage('Build') {
             steps {
+                script{
+                    echo "Build stage executed"
+                }
+                
                 // Your build steps here
             }
         }
@@ -32,7 +36,11 @@ pipeline {
                 expression { params.SKIP != 'true' }
             }
             steps {
-                // Your test steps here
+                script{
+                    echo "Test stage executed"
+                }
+                
+                // Your build steps here
             }
         }
         
@@ -41,7 +49,11 @@ pipeline {
                 expression { params.SKIP != 'true' }
             }
             steps {
-                // Your deploy steps here
+                script{
+                    echo "Deploy stage executed"
+                }
+                
+                // Your build steps here
             }
         }
         
