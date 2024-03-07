@@ -1,9 +1,7 @@
+def RELEASE_FILE_AVAILABLE = "true"
 pipeline {
     agent {
         label 'agent-1'
-    }
-    environment{
-        RELEASE_FILE_AVAILABLE = "true"
     }
     stages {
         stage('Set Skip Parameter') {
@@ -16,7 +14,6 @@ pipeline {
                     
                     // Set parameter to skip successive stages based on odd/even day
                     RELEASE_FILE_AVAILABLE = (dayOfMonth % 2 == 0) ? "true" : "false"
-                    println "RELEASE_FILE_AVAILABLE set to: ${RELEASE_FILE_AVAILABLE}"
                 }
             }
         }
@@ -33,7 +30,7 @@ pipeline {
         
         stage('Test') {
             when {
-                expression { env.RELEASE_FILE_AVAILABLE == 'true' }
+                expression { RELEASE_FILE_AVAILABLE == 'true' }
             }
             steps {
                 script{
@@ -46,7 +43,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                expression { env.RELEASE_FILE_AVAILABLE == 'true' }
+                expression { RELEASE_FILE_AVAILABLE == 'true' }
             }
             steps {
                 script{
