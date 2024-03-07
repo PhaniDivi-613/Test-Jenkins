@@ -13,7 +13,7 @@ pipeline {
                     def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
                     
                     // Set parameter to skip successive stages based on odd/even day
-                    RELEASE_FILE_AVAILABLE = (dayOfMonth % 2 == 0) ? "true" : "false"
+                    RELEASE_FILE_AVAILABLE = (dayOfMonth % 2 == 1) ? "true" : "false"
                 }
             }
         }
