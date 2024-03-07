@@ -12,10 +12,19 @@ pipelineJob("Testing Job 1") {
                 }
             }
         }
+        pipelineTriggers {
+            triggers {
+                parameterizedCron {
+                    parameterizedSpecification('''TZ=UTC\n
+55 13 * * * %DEPLOYMENT=dev_us-south''')
+                }
+            }
+        }
     }
     parameters {
         stringParam('PARAM', 'False', 'True or False')
     }
+
     description()
     keepDependencies(false)
     definition {
