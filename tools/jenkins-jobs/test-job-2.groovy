@@ -14,13 +14,9 @@ pipeline {
                     calendar.setTime(currentDate)
                     def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
                     
-                    // Check if day is odd
-                    def skip = (dayOfMonth % 2 == 1) ? true : false
-                    
-                    // Set parameter to skip successive stages
-                    env.RELEASE_FILE_AVAILABLE = "false"
-                    echo "${RELEASE_FILE_AVAILABLE}"
-                    println env.RELEASE_FILE_AVAILABLE
+                    // Set parameter to skip successive stages based on odd/even day
+                    env.RELEASE_FILE_AVAILABLE = (dayOfMonth % 2 == 0) ? "true" : "false"
+                    println "RELEASE_FILE_AVAILABLE set to: ${RELEASE_FILE_AVAILABLE}"
                 }
             }
         }
@@ -41,7 +37,7 @@ pipeline {
             }
             steps {
                 script{
-                    echo "Test stage executed"
+                    println "Test stage executed"
                 }
                 
                 // Your build steps here
@@ -54,7 +50,7 @@ pipeline {
             }
             steps {
                 script{
-                    echo "Deploy stage executed"
+                    println "Deploy stage executed"
                 }
                 
                 // Your build steps here
