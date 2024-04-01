@@ -11,9 +11,7 @@ pipeline {
     stages {
         stage('stage 1') {
             when {
-                allOf {
-                    experssion { env.TRAINID_OVERRIDE == 'false'}
-                }
+                expression { env.TRAINID_OVERRIDE == 'false'}
             }
             steps {
                 script {
