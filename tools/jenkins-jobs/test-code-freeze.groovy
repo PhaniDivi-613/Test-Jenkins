@@ -18,7 +18,9 @@ pipeline {
             }
             steps {
                 script {
+                    println(TRAINID_OVERRIDE)
                     sh """
+                        echo "$TRAINID_OVERRIDE"
                         echo "stage 1 running"
                         echo "stage 1 finished"
                     """
