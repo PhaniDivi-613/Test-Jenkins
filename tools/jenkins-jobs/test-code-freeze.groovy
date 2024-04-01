@@ -6,15 +6,20 @@ pipeline {
         LOCATION = "${env.DEPLOYMENT.split('_')[1]}"
         ENVIRONMENT = "${env.DEPLOYMENT.split('_')[0]}"
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
-        DESPITE_CODE_FREEZE = "${DESPITE_CODE_FREEZE}"
+        TRAINID_OVERRIDE = "${TRAINID_OVERRIDE}"
     }
     stages {
-        stage('Check Code Freeze') {
+        stage('stage 1') {
+            when {
+                allOf {
+                    experssion { env.TRAINID_OVERRIDE == 'false'}
+                }
+            }
             steps {
                 script {
                     sh """
-                        cd scripts
-                        python3 code-freeze.py
+                        echo "stage 1 running"
+                        echo "stage 1 finished"
                     """
                 }
             }

@@ -14,7 +14,7 @@ pipelineJob("Testing for code freeze") {
     }
     parameters {
         choiceParam('DEPLOYMENT', ["prod_au-syd", "prod_eu-fr2"], 'choose the region')
-        booleanParam('DESPITE_CODE_FREEZE', false, "Choose to set when to promote despite of code freeze active in the given region")
+        booleanParam('TRAINID_OVERRIDE', false, "Choose to set when wish to skip the step trainID creation")
     }
     description('Your job description goes here') // Add your job description
     keepDependencies(false)
@@ -29,14 +29,6 @@ pipelineJob("Testing for code freeze") {
                 }
             }
             scriptPath("tools/jenkins-jobs/test-code-freeze.groovy")
-        }
-    }
-   triggers {
-        parameterizedCron {
-            parameterizedSpecification('''TZ=America/Toronto
-* * * * * %DEPLOYMENT=prod_au-syd
-* * * * * %DEPLOYMENT=prod_eu-fr2
-''')
         }
     }
 }
