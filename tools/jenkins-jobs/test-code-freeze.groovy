@@ -10,12 +10,12 @@ pipeline {
     }
     stages {
         stage('stage 1') {
-            // when {
-            //     allOf {
-            //         expression { env.TRAINID_OVERRIDE == 'false'}
-            //         expression { env.IBMCLOUD_ENVIRONMENT == 'stage' || env.IBMCLOUD_ENVIRONMENT == 'prod'}
-            //     }
-            // }
+            when {
+                allOf {
+                    expression { env.TRAINID_OVERRIDE == 'false'}
+                    expression { env.ENVIRONMENT == 'stage' || env.ENVIRONMENT == 'prod'}
+                }
+            }
             steps {
                 script {
                     println(TRAINID_OVERRIDE)
