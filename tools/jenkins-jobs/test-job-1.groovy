@@ -4,16 +4,15 @@ pipeline {
         label 'agent-1'
     }
     stages {
-        stage('Set Skip Parameter') {
+        stage('Stage 1') {
             steps {
                 script {
-                    def currentDate = new Date()
-                    def calendar = Calendar.getInstance()
-                    calendar.setTime(currentDate)
-                    def dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-                    
-                    // Set parameter to skip successive stages based on odd/even day
-                    RELEASE_FILE_AVAILABLE = (dayOfMonth % 2 == 1) ? "true" : "false"
+                    echo "${DEPLOYMENT}"
+                    echo "${ARTIFACTORY_DOCKERHUB}"
+                    echo "${DOCKER_IMAGE}"
+                    echo "${DOCKER_TAG}"
+                    echo "${REGISTRY}"
+                    echo "${REGISTRY_NAMESPACE}"
                 }
             }
         }
