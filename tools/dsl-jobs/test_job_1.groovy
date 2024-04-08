@@ -15,7 +15,7 @@ pipelineJob("Testing Job 1") {
         pipelineTriggers {
             triggers {
                 parameterizedCron {
-                    parameterizedSpecification('''TZ=America/Toronto\nH H 2,16 * * %DEPLOYMENT=dev_us-south;ARTIFACTORY_DOCKERHUB=docker-na-public.artifactory.swg-devops.com/wcp-argonauts-kirkman-team-observability-docker-virtual;DOCKER_IMAGE=ubi8/ubi-init;DOCKER_TAG=8.9;REGISTRY=us.icr.io;REGISTRY_NAMESPACE=atracker''')
+                    parameterizedSpecification('''TZ=America/Toronto\nH H * * * %DEPLOYMENT=dev_us-south;ARTIFACTORY_DOCKERHUB=docker-na-public.artifactory.swg-devops.com/wcp-argonauts-kirkman-team-observability-docker-virtual;DOCKER_IMAGE=ubi8/ubi-init;DOCKER_TAG=8.9;REGISTRY=us.icr.io;REGISTRY_NAMESPACE=atracker''')
                 }
             }
         }
