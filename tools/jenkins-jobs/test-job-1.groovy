@@ -1,18 +1,22 @@
 def RELEASE_FILE_AVAILABLE = "true"
+trainOverride = (TRAIN_ID.length() > 0)
 pipeline {
     agent {
         label 'agent-1'
     }
+    environment {
+        TRAIN_ID = "${TRAIN_ID}"
+    }
     stages {
         stage('Stage 1') {
+            when {
+                allOf {
+                    expression { trainOverride != false && env.TRAIN_ID == ''}
+                }
+            }
             steps {
                 script {
-                    echo "${DEPLOYMENT}"
-                    echo "${ARTIFACTORY_DOCKERHUB}"
-                    echo "${DOCKER_IMAGE}"
-                    echo "${DOCKER_TAG}"
-                    echo "${REGISTRY}"
-                    echo "${REGISTRY_NAMESPACE}"
+                    echo "Stage 1 Executed"
                 }
             }
         }
@@ -20,7 +24,7 @@ pipeline {
         stage('Build') {
             steps {
                 script{
-                    echo "Build stage executed"
+                    echo "${TRAIN_ID}"
                 }
                 
                 // Your build steps here
