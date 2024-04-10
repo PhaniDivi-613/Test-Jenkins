@@ -11,7 +11,7 @@ pipeline {
         stage('Stage 1') {
             when {
                 allOf {
-                    expression { trainOverride != false && env.TRAIN_ID == ''}
+                    expression { trainOverride == false}
                 }
             }
             steps {
