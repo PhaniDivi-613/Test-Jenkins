@@ -21,42 +21,42 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                script{
-                    echo "${TRAIN_ID}"
-                }
+        // stage('Build') {
+        //     steps {
+        //         script{
+        //             echo "${TRAIN_ID}"
+        //         }
                 
-                // Your build steps here
-            }
-        }
+        //         // Your build steps here
+        //     }
+        // }
         
-        stage('Test') {
-            when {
-                expression { RELEASE_FILE_AVAILABLE == 'true' }
-            }
-            steps {
-                script{
-                    println "Test stage executed"
-                }
+    //     stage('Test') {
+    //         when {
+    //             expression { RELEASE_FILE_AVAILABLE == 'true' }
+    //         }
+    //         steps {
+    //             script{
+    //                 println "Test stage executed"
+    //             }
                 
-                // Your build steps here
-            }
-        }
+    //             // Your build steps here
+    //         }
+    //     }
         
-        stage('Deploy') {
-            when {
-                expression { RELEASE_FILE_AVAILABLE == 'true' }
-            }
-            steps {
-                script{
-                    println "Deploy stage executed"
-                }
+    //     stage('Deploy') {
+    //         when {
+    //             expression { RELEASE_FILE_AVAILABLE == 'true' }
+    //         }
+    //         steps {
+    //             script{
+    //                 println "Deploy stage executed"
+    //             }
                 
-                // Your build steps here
-            }
-        }
+    //             // Your build steps here
+    //         }
+    //     }
         
-        // Add more stages here if needed
+    //     // Add more stages here if needed
     }
 }
